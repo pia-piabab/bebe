@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Little Surprise 💗</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Arial", sans-serif;
+      background: linear-gradient(135deg, #ffd6e7, #ffeef4, #ffc2d8);
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #e84375;
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #a8325c;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    .heart-button {
+      border: none;
+      background: transparent;
+      font-size: 100px;
+      cursor: pointer;
+      animation: heartbeat 1s infinite;
+      filter: drop-shadow(0 8px 12px #f080a0);
+      transition: transform 0.3s;
+    }
+
+    .heart-button:hover {
+      transform: scale(1.2);
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .surprise {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: rgba(255, 224, 236, 0.97);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.6s ease;
+      z-index: 10;
+      padding: 20px;
+    }
+
+    .surprise.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .photo-card {
+      background: white;
+      padding: 12px 12px 25px;
+      border-radius: 12px;
+      box-shadow: 0 10px 35px rgba(180, 50, 100, 0.25);
+      transform: scale(0.3) rotate(-10deg);
+      transition: transform 0.7s cubic-bezier(.2, 1.5, .5, 1);
+      max-width: 340px;
+      width: 100%;
+    }
+
+    .surprise.show .photo-card {
+      transform: scale(1) rotate(2deg);
+    }
+
+    .photo-card img {
+      display: block;
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 7px;
+    }
+
+    .message {
+      color: #e84375;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 18px;
+    }
+
+    .sub-message {
+      color: #a8325c;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .close-button {
+      margin-top: 25px;
+      border: none;
+      background: #f05b8d;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-button:hover {
+      background: #d93670;
+      transform: scale(1.05);
+    }
+
+    .floating-heart {
+      position: fixed;
+      bottom: -30px;
+      color: #ff4f87;
+      font-size: 25px;
+      pointer-events: none;
+      animation: floatUp 4s linear forwards;
+      z-index: 20;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <h1>Hi bebe! 💕</h1>
+    <p>I have a little surprise for you...</p>
+
+    <button
+      class="heart-button"
+      onclick="openSurprise()"
+      aria-label="Open your surprise"
+    >
+      💗
+    </button>
+
+    <p>Click mo poo! 🎁</p>
+  </main>
+
+  <section class="surprise" id="surprise">
+    <div class="photo-card">
+      <!-- Replace photo.jpg with your own photo filename -->
+      <img src="image.png" alt="Our special memory" />
+
+      <div class="message">You're My Only One Bebe! 💖</div>
+      <div class="sub-message">
+        waahh kainis ka HAHAHAH. 🥹💕
+      </div>
+    </div>
+
+    <button class="close-button" onclick="closeSurprise()">
+      Close 💌
+    </button>
+  </section>
+
+  <script>
+    function openSurprise() {
+      document.getElementById("surprise").classList.add("show");
+      createHearts();
+    }
+
+    function closeSurprise() {
+      document.getElementById("surprise").classList.remove("show");
+    }
+
+    function createHearts() {
+      for (let i = 0; i < 25; i++) {
+        const heart = document.createElement("div");
+        heart.className = "floating-heart";
+        heart.textContent = ["💗", "💕", "💖", "💘", "❤️"][
+          Math.floor(Math.random() * 5)
+        ];
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDelay = Math.random() * 2 + "s";
+        heart.style.fontSize = 15 + Math.random() * 25 + "px";
+
+        document.body.appendChild(heart);
+
+        heart.addEventListener("animationend", () => heart.remove());
+      }
+    }
+  </script>
+</body>
+</html>
